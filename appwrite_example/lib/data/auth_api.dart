@@ -4,9 +4,6 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:appwrite_example/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
-
-var uuid = Uuid();
 
 enum AuthStatus {
   uninitialized,
@@ -58,7 +55,7 @@ class AuthApi extends ChangeNotifier {
       {required String email, required String password}) async {
     try {
       final user = await account.create(
-        userId: uuid.v4(),
+        userId: ID.unique(),
         email: email,
         password: password,
         name: "Simon G",

@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite_example/data/auth_api.dart';
+import 'package:appwrite_example/data/database_api.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/models.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
-  // final database = DatabaseAPI();
+  final database = DatabaseAPI();
   late List<Document>? messages = [];
   TextEditingController messageTextController = TextEditingController();
   AuthStatus authStatus = AuthStatus.uninitialized;
@@ -27,10 +28,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   loadMessages() async {
     try {
-      // final value = await database.getMessages();
-      // setState(() {
-      //   messages = value.documents;
-      // });
+      final value = await database.getMessages();
+      setState(() {
+        messages = value.documents;
+      });
     } catch (e) {
       print(e);
     }
