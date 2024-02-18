@@ -99,7 +99,7 @@ class AuthApi extends ChangeNotifier {
     return await account.getPrefs();
   }
 
-  updatePreferences({required String bio}) async {
-    return account.updatePrefs(prefs: {'bio': bio});
+  updatePreferences({required String job}) async {
+    return account.updatePrefs(prefs: {'job': job});
   }
 }
