@@ -37,7 +37,7 @@ class DatabaseAPI {
         data: {
           'text': message,
           'date': DateTime.now().toString(),
-          'user_id': auth.userId
+          'userId': auth.userId
         });
   }
 

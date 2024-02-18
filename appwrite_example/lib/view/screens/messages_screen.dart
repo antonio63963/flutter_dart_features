@@ -22,13 +22,16 @@ class _MessagesScreenState extends State<MessagesScreen> {
   void initState() {
     super.initState();
     final AuthApi appwrite = context.read<AuthApi>();
+    print("Message Screen Init: ${appwrite.client.toString()}");
     authStatus = appwrite.status;
     loadMessages();
   }
 
   loadMessages() async {
+    print('HOH');
     try {
       final value = await database.getMessages();
+      print('Messages: $value');
       setState(() {
         messages = value.documents;
       });
@@ -39,7 +42,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   addMessage() async {
     try {
-      // await database.addMessage(message: messageTextController.text);
+      await database.addMessage(message: messageTextController.text);
       const snackbar = SnackBar(content: Text('Message added!'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       messageTextController.clear();
@@ -51,7 +54,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   deleteMessage(String id) async {
     try {
-      // await database.deleteMessage(id: id);
+      await database.deleteMessage(id: id);
       loadMessages();
     } on AppwriteException catch (e) {
       showAlert(title: 'Error', text: e.message.toString());

@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   signInWithProvider(String provider) {
     try {
-      // context.read<AuthApi>().signInWithProvider(provider: provider);
+      context.read<AuthApi>().signInWithProvider(provider: provider);
     } on AppwriteException catch (e) {
       showAlert(title: 'Login failed', text: e.message.toString());
     }

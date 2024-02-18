@@ -42,6 +42,7 @@ class AuthApi extends ChangeNotifier {
   loadUser() async {
     try {
       final user = await account.get();
+      print('User: ${user.toMap()}');
       _status = AuthStatus.authenticated;
       _currentUser = user;
     } catch (err) {
@@ -52,17 +53,17 @@ class AuthApi extends ChangeNotifier {
   }
 
   Future<User> createUser(
-      {required String email, required String password}) async {
+      {required String name, required String email, required String password}) async {
     try {
       final user = await account.create(
         userId: ID.unique(),
         email: email,
         password: password,
-        name: "Simon G",
+        name: name,
       );
       return user;
     } catch (err) {
-      throw AppwriteException('Something has gone wrong on create user.../n ERR: $err');
+      throw AppwriteException('Something has gone wrong on create user...\n ERR: $err');
     } finally {
       notifyListeners();
     }
@@ -75,6 +76,17 @@ class AuthApi extends ChangeNotifier {
     try {
       final session =
           await account.createEmailSession(email: email, password: password);
+      _currentUser = await account.get();
+      _status = AuthStatus.authenticated;
+      return session;
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  signInWithProvider({required String provider}) async {
+    try {
+      final session = await account.createOAuth2Session(provider: provider);
       _currentUser = await account.get();
       _status = AuthStatus.authenticated;
       return session;

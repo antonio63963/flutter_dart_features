@@ -11,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final nameTextController = TextEditingController();
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
 
@@ -31,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       final AuthApi appwrite = context.read<AuthApi>();
       await appwrite.createUser(
+        name: nameTextController.text,
         email: emailTextController.text,
         password: passwordTextController.text,
       );
@@ -74,6 +76,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              TextField(
+                controller: nameTextController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
               TextField(
                 controller: emailTextController,
                 decoration: const InputDecoration(
