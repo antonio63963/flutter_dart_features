@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:less_1/hooks_examples/input_controller.dart';
 import 'package:less_1/hooks_examples/stream_hook_page.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const StreamHookPage(),
+      home: const InputController(),
+      // home: const StreamHookPage(),
     );
   }
 }
